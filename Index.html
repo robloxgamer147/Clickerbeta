@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicker Game</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
+    button { font-size: 2em; padding: 20px 40px; }
+    #consent { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Clicker Game</h1>
+  <p>Clicks: <span id="count">0</span></p>
+  <button onclick="increment()">Click Me!</button>
+
+  <div id="consent">
+    <p>This site collects your IP for analytics. Do you agree?</p>
+    <button onclick="giveConsent()">I Agree</button>
+  </div>
+
+  <script>
+    let count = 0;
+    function increment() {
+      count++;
+      document.getElementById("count").textContent = count;
+    }
+
+    function giveConsent() {
+      fetch("/log-ip", { method: "POST" }).then(() => {
+        document.getElementById("consent").innerHTML = "<p>Thanks! Your IP has been logged.</p>";
+      });
+    }
+  </script>
+</body>
+</html>
